@@ -1,3 +1,5 @@
+import './screens/carDisplay_screen.dart';
+
 import './screens/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,6 +29,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/' :(ctx) => HomeScreen(),
         CarsList.routeName : (ctx) => CarsList(),
+        CarDisplay.routeName : (ctx)=>CarDisplay(),
       },
     );
   }
