@@ -1,8 +1,8 @@
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../models/Car.dart';
-
+import '../widgets/booknow.dart';
 class CarDisplay extends StatefulWidget {
   static const routeName = '/routeCarDisplay';
   @override
@@ -10,6 +10,17 @@ class CarDisplay extends StatefulWidget {
 }
 
 class _CarDisplayState extends State<CarDisplay> {
+
+
+  void bookNow(BuildContext ctx, Car car) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        return BookNow(currentCar: car,);
+      },
+    );
+  }
+
   Car car;
   @override
   Widget build(BuildContext context) {
@@ -79,6 +90,9 @@ class _CarDisplayState extends State<CarDisplay> {
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height: min(mHeight * 0.05, 30),
+                    ),
                     Container(
                       margin: EdgeInsets.only(
                           left: mWidth * .05, top: mWidth * .02),
@@ -99,64 +113,72 @@ class _CarDisplayState extends State<CarDisplay> {
                       ),
                     ),
                     SizedBox(
-                      height: mHeight*.02,
+                      height: mHeight * .02,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Container(
-                          height: mHeight*.15,
-                          width: mHeight*0.15,
+                          height: mHeight * .15,
+                          width: mHeight * 0.15,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(
-                                color: Color(0xFFd0f1d7),
-                                width: 3,
-                              ),
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: Color(0xFFd0f1d7),
+                              width: 3,
+                            ),
                           ),
                           child: Stack(
                             children: <Widget>[
                               Positioned(
-
-                                  child: Image.asset('assets/images/car.png', scale: 1.3,),
-                                right: mHeight*.01,
+                                child: Image.asset(
+                                  'assets/images/car.png',
+                                  scale: 1.3,
+                                ),
+                                right: mHeight * .01,
                               ),
                               Positioned(
                                 bottom: 0,
-                                right: mHeight*.03,
-                                child: Text(CarType(car), style: TextStyle(
-                                    fontSize: 20,
-                                    fontFamily: 'HKGrotesk'),),
+                                right: mHeight * .03,
+                                child: Text(
+                                  carType(car),
+                                  style: TextStyle(
+                                      fontSize: 20, fontFamily: 'HKGrotesk'),
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox (
-                          width: mWidth*.2,
+                        SizedBox(
+                          width: mWidth * .2,
                         ),
                         Container(
-                          height: mHeight*.15,
-                          width: mHeight*0.15,
+                          height: mHeight * .15,
+                          width: mHeight * 0.15,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               border: Border.all(
                                 color: Color(0xFFd0f1d7),
                                 width: 3,
-                              )
-                          ),
+                              )),
                           child: Stack(
                             children: <Widget>[
                               Positioned(
-                                child: Image.asset('assets/images/engine.png', scale: 1.7,),
-                                top: mHeight*.02,
-                                right: mHeight*.03,
+                                child: Image.asset(
+                                  'assets/images/engine.png',
+                                  scale: 1.7,
+                                ),
+                                top: mHeight * .02,
+                                right: mHeight * .03,
                               ),
                               Positioned(
                                 bottom: 0,
-                                right: mHeight*.01,
-                                child: Text(car.carEngine, style: TextStyle(
-                                    fontSize: 20,
-                                    fontFamily: 'HKGrotesk'),),
+                                right: mHeight * .01,
+                                child: Text(
+                                  car.carEngine,
+                                  style: TextStyle(
+                                      fontSize: 20, fontFamily: 'HKGrotesk'),
+                                ),
                               ),
                             ],
                           ),
@@ -164,14 +186,14 @@ class _CarDisplayState extends State<CarDisplay> {
                       ],
                     ),
                     SizedBox(
-                      height: mHeight*.02,
+                      height: mHeight * .02,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Container(
-                          height: mHeight*.15,
-                          width: mHeight*0.15,
+                          height: mHeight * .15,
+                          width: mHeight * 0.15,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
@@ -182,39 +204,49 @@ class _CarDisplayState extends State<CarDisplay> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Text(car.carRate, style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'HKGrotesk'),),
-                              Text('Price / Day', style: TextStyle(
-                                  fontSize: 15,
-                                  fontFamily: 'HKGrotesk'),),
+                              Text(
+                                car.carRate,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'HKGrotesk'),
+                              ),
+                              Text(
+                                'Price / Day',
+                                style: TextStyle(
+                                    fontSize: 15, fontFamily: 'HKGrotesk'),
+                              ),
                             ],
                           ),
                         ),
-                        SizedBox (
-                          width: mWidth*.2,
+                        SizedBox(
+                          width: mWidth * .2,
                         ),
                         Container(
-                          height: mHeight*.15,
-                          width: mHeight*0.15,
+                          height: mHeight * .15,
+                          width: mHeight * 0.15,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(
-                                color: Color(0xFFd0f1d7),
-                                width: 3,
-                              ),
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: Color(0xFFd0f1d7),
+                              width: 3,
+                            ),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Text('N/A', style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'HKGrotesk'),),
-                              Text('Mileage', style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'HKGrotesk'),),
+                              Text(
+                                'N/A',
+                                style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'HKGrotesk'),
+                              ),
+                              Text(
+                                'Mileage',
+                                style: TextStyle(
+                                    fontSize: 20, fontFamily: 'HKGrotesk'),
+                              ),
                             ],
                           ),
                         ),
@@ -227,7 +259,7 @@ class _CarDisplayState extends State<CarDisplay> {
                 bottom: 0,
                 child: Container(
                   width: mWidth,
-                  height: mHeight*.12,
+                  height: mHeight * .12,
                   decoration: BoxDecoration(
                     color: Color(0XFF2D9067),
                     borderRadius: BorderRadius.only(
@@ -236,13 +268,16 @@ class _CarDisplayState extends State<CarDisplay> {
                     ),
                   ),
                   child: Center(
-                    child: Text(
-                      'BOOK NOW',
-                      style: TextStyle(
-                        color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'HKGrotesk'),
+                    child: GestureDetector(
+                      child: Text(
+                        'BOOK NOW',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'HKGrotesk'),
+                      ),
+                      onTap: () => bookNow(context, car),
                     ),
                   ),
                 ),
@@ -253,19 +288,25 @@ class _CarDisplayState extends State<CarDisplay> {
   }
 }
 
-
-String CarType (Car car) {
-  if(car.carType == carTypes.sedan){
+String carType(Car car) {
+  if (car.carType == carTypes.sedan) {
     return 'Sedan';
-  }if(car.carType == carTypes.convertible){
+  }
+  if (car.carType == carTypes.convertible) {
     return 'Convertible';
-  }if(car.carType == carTypes.crossover){
+  }
+  if (car.carType == carTypes.crossover) {
     return 'CrossOver';
-  }if(car.carType == carTypes.suv){
+  }
+  if (car.carType == carTypes.suv) {
     return 'SUV';
-  }if(car.carType == carTypes.hatchback){
+  }
+  if (car.carType == carTypes.hatchback) {
     return 'Hatchback';
-  }if(car.carType == carTypes.truck){
+  }
+  if (car.carType == carTypes.truck) {
     return 'Truck';
+  } else {
+    return "";
   }
 }

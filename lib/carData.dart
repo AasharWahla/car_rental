@@ -13,62 +13,72 @@ List<Car> carsList = [
   ),
   Car(
     carID: '002',
-    carName: 'Altis Grande',
+    carName: 'Camry',
     carType: carTypes.sedan,
     carEngine: "1800 CC",
-    carRate: "PKR 3000",
+    carRate: "PKR 4000",
     carImage:
-        "assets/images/grande.png",
+        "assets/images/camry.png",
     carMake: 'Toyota',
   ),
   Car(
     carID: '003',
-    carName: 'Altis Grande',
-    carType: carTypes.sedan,
-    carEngine: "1800 CC",
-    carRate: "PKR 3000",
+    carName: 'Fortuner',
+    carType: carTypes.suv,
+    carEngine: "2700 CC",
+    carRate: "PKR 6000",
     carImage:
-        "assets/images/grande.png",
-    carMake: 'Toyota',
-  ),
-  Car(
-    carID: '004',
-    carName: 'Altis Grande',
-    carType: carTypes.sedan,
-    carEngine: "1800 CC",
-    carRate: "PKR 3000",
-    carImage:
-        "assets/images/grande.png",
-    carMake: 'Toyota',
-  ),
-  Car(
-    carID: '005',
-    carName: 'Altis Grande',
-    carType: carTypes.sedan,
-    carEngine: "1800 CC",
-    carRate: "PKR 3000",
-    carImage:
-        "assets/images/grande.png",
-    carMake: 'Toyota',
-  ),
-  Car(
-    carID: '006',
-    carName: 'Altis Grande',
-    carType: carTypes.sedan,
-    carEngine: "1800 CC",
-    carRate: "PKR 3000",
-    carImage:
-        "assets/images/grande.png",
+        "assets/images/fortuner.png",
     carMake: 'Toyota',
   ),
   Car(
     carID: '007',
-    carName: 'Altis Grande',
+    carName: 'Yaris',
     carType: carTypes.sedan,
-    carEngine: "1800 CC",
+    carEngine: "1500 CC",
+    carRate: "PKR 2500",
+    carImage:
+    "assets/images/yaris.png",
+    carMake: 'Toyota',
+  ),
+  Car(
+    carID: '004',
+    carName: 'Land Cruiser',
+    carType: carTypes.suv,
+    carEngine: "3500 CC",
+    carRate: "PKR 9000",
+    carImage:
+        "assets/images/landcruiser.png",
+    carMake: 'Toyota',
+  ),
+  Car(
+    carID: '005',
+    carName: 'Prius',
+    carType: carTypes.hatchback,
+    carEngine: "1500 CC",
     carRate: "PKR 3000",
     carImage:
-        "assets/images/grande.png",
+        "assets/images/prius.png",
+    carMake: 'Toyota',
+  ),
+  Car(
+    carID: '006',
+    carName: 'Revo',
+    carType: carTypes.truck,
+    carEngine: "2200 CC",
+    carRate: "PKR 5000",
+    carImage:
+        "assets/images/revo.png",
+    carMake: 'Toyota',
+  ),
+  Car(
+    carID: '007',
+    carName: 'Rush',
+    carType: carTypes.hatchback,
+    carEngine: "1500 CC",
+    carRate: "PKR 2500",
+    carImage:
+        "assets/images/rush.png",
     carMake: 'Toyota',
   ),
 ];

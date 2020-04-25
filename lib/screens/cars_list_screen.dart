@@ -78,9 +78,9 @@ class CarDisplayTile extends StatelessWidget {
     return GestureDetector(
         child: Card(
           margin: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * .15,
+              left: MediaQuery.of(context).size.width * .1,
               top: MediaQuery.of(context).size.height * .05,
-              right: MediaQuery.of(context).size.width * .15),
+              right: MediaQuery.of(context).size.width * .1),
           child: Stack(
             children: <Widget>[
               Center(
