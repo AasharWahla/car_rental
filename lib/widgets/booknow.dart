@@ -17,11 +17,11 @@ class _BookNowState extends State<BookNow> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2030),
-    ).then((selectedDate){
-      if(selectedDate == null){
+    ).then((selectedDate) {
+      if (selectedDate == null) {
         return;
       } else {
-        if(check == 'from'){
+        if (check == 'from') {
           setState(() {
             _fromSelectedDate = selectedDate;
           });
@@ -33,6 +33,7 @@ class _BookNowState extends State<BookNow> {
       }
     });
   }
+
   DateTime _fromSelectedDate;
   DateTime _tillSelectedDate;
   @override
@@ -44,19 +45,29 @@ class _BookNowState extends State<BookNow> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: <Widget>[
-                Text('From : '),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'From : ',
+                  style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 20),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
                       _fromSelectedDate == null
                           ? 'No Date Chosen!'
-                          : 'Picked Date: ${DateFormat('dd/MM/yyyy').format(_fromSelectedDate)}',
+                          : '${DateFormat('dd/MM/yyyy').format(_fromSelectedDate)}',
+                      style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 15),
                     ),
                     FlatButton(
                       onPressed: () {
                         dateTimePicker('from');
                       },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          side: BorderSide(color: Color(0xFFd0f1d7), width: 5)),
                       child: Text('Select Date'),
                     ),
                   ],
@@ -68,18 +79,28 @@ class _BookNowState extends State<BookNow> {
             padding: const EdgeInsets.all(20),
             child: Column(
               children: <Widget>[
-                Text('Till : '),
+                Text(
+                  'Till : ',
+                  style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 20),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
                       _tillSelectedDate == null
                           ? "No Date Choosen!"
-                          : "Picked Date : ${DateFormat('dd/MM/yyyy').format(_tillSelectedDate)}"
+                          : "${DateFormat('dd/MM/yyyy').format(_tillSelectedDate)}",
+                      style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 15),
                     ),
-                    FlatButton(onPressed: (){
-                      dateTimePicker("till");
-                    }, child: Text('Select Date'))
+                    FlatButton(
+                      onPressed: () {
+                        dateTimePicker("till");
+                      },
+                      child: Text('Select Date'),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          side: BorderSide(color: Color(0xFFd0f1d7), width: 5)),
+                    )
                   ],
                 ),
               ],
@@ -91,11 +112,18 @@ class _BookNowState extends State<BookNow> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(),
-                Text('Total Days : '),
                 Text(
-                    _tillSelectedDate != null
-                        ? _tillSelectedDate.difference(_fromSelectedDate).inDays.toString()
-                        : '0'
+                  'Total Days : ',
+                  style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 20),
+                ),
+                Text(
+                  _tillSelectedDate != null && _fromSelectedDate != null
+                      ? _tillSelectedDate
+                          .difference(_fromSelectedDate)
+                          .inDays
+                          .toString()
+                      : '0',
+                  style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 20),
                 ),
               ],
             ),
@@ -106,8 +134,14 @@ class _BookNowState extends State<BookNow> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(),
-                Text('Rate / Day : '),
-                Text(widget.currentCar.carRate.toString()),
+                Text(
+                  'Rate / Day : ',
+                  style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 20),
+                ),
+                Text(
+                  widget.currentCar.carRate.toString(),
+                  style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 20),
+                ),
               ],
             ),
           ),
@@ -117,10 +151,21 @@ class _BookNowState extends State<BookNow> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(),
-                Text('Total : '),
-                Text(_tillSelectedDate != null
-                    ? (_tillSelectedDate.difference(_fromSelectedDate).inDays*double.parse(widget.currentCar.carRate.substring(3))).toString()
-                    : '0'),
+                Text(
+                  'Total : ',
+                  style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 20),
+                ),
+                Text(
+                  _tillSelectedDate != null && _fromSelectedDate != null
+                      ? (_tillSelectedDate
+                                  .difference(_fromSelectedDate)
+                                  .inDays *
+                              double.parse(
+                                  widget.currentCar.carRate.substring(3)))
+                          .toString()
+                      : '0',
+                  style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 20),
+                ),
               ],
             ),
           ),
@@ -130,8 +175,22 @@ class _BookNowState extends State<BookNow> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(),
-                Text('Advance : '),
-                Text('0'),
+                Text(
+                  'Advance : ',
+                  style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 20),
+                ),
+                Text(
+                  _tillSelectedDate != null && _fromSelectedDate != null
+                      ? ((_tillSelectedDate
+                                      .difference(_fromSelectedDate)
+                                      .inDays *
+                                  double.parse(
+                                      widget.currentCar.carRate.substring(3))) *
+                              .09)
+                          .toString()
+                      : '0',
+                  style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 20),
+                ),
               ],
             ),
           ),

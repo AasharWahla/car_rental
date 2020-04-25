@@ -18,6 +18,12 @@ class _CarDisplayState extends State<CarDisplay> {
       builder: (_) {
         return BookNow(currentCar: car,);
       },
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        )
+      )
     );
   }
 
