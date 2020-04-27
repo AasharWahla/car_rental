@@ -6,7 +6,7 @@ List<Car> carsList = [
     carName: 'Altis Grande',
     carType: carTypes.sedan,
     carEngine: "1800 CC",
-    carRate: "PKR 3000",
+    carRate: 3000,
     carImage:
         "assets/images/grande.png",
     carMake: 'Toyota',
@@ -16,7 +16,7 @@ List<Car> carsList = [
     carName: 'Camry',
     carType: carTypes.sedan,
     carEngine: "1800 CC",
-    carRate: "PKR 4000",
+    carRate: 4000,
     carImage:
         "assets/images/camry.png",
     carMake: 'Toyota',
@@ -26,7 +26,7 @@ List<Car> carsList = [
     carName: 'Fortuner',
     carType: carTypes.suv,
     carEngine: "2700 CC",
-    carRate: "PKR 6000",
+    carRate: 6000,
     carImage:
         "assets/images/fortuner.png",
     carMake: 'Toyota',
@@ -36,7 +36,7 @@ List<Car> carsList = [
     carName: 'Yaris',
     carType: carTypes.sedan,
     carEngine: "1500 CC",
-    carRate: "PKR 2500",
+    carRate: 2500,
     carImage:
     "assets/images/yaris.png",
     carMake: 'Toyota',
@@ -46,7 +46,7 @@ List<Car> carsList = [
     carName: 'Land Cruiser',
     carType: carTypes.suv,
     carEngine: "3500 CC",
-    carRate: "PKR 9000",
+    carRate: 9000,
     carImage:
         "assets/images/landcruiser.png",
     carMake: 'Toyota',
@@ -56,7 +56,7 @@ List<Car> carsList = [
     carName: 'Prius',
     carType: carTypes.hatchback,
     carEngine: "1500 CC",
-    carRate: "PKR 3000",
+    carRate: 3000,
     carImage:
         "assets/images/prius.png",
     carMake: 'Toyota',
@@ -66,7 +66,7 @@ List<Car> carsList = [
     carName: 'Revo',
     carType: carTypes.truck,
     carEngine: "2200 CC",
-    carRate: "PKR 5000",
+    carRate: 5000,
     carImage:
         "assets/images/revo.png",
     carMake: 'Toyota',
@@ -76,7 +76,7 @@ List<Car> carsList = [
     carName: 'Rush',
     carType: carTypes.hatchback,
     carEngine: "1500 CC",
-    carRate: "PKR 2500",
+    carRate: 2500,
     carImage:
         "assets/images/rush.png",
     carMake: 'Toyota',

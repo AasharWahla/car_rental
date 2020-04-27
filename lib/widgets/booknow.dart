@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import '../models/Car.dart';
+import 'package:provider/provider.dart';
+import '../providers/orders.dart';
 
 class BookNow extends StatefulWidget {
   final Car currentCar;
@@ -38,6 +40,7 @@ class _BookNowState extends State<BookNow> {
   DateTime _tillSelectedDate;
   @override
   Widget build(BuildContext context) {
+    final orders = Provider.of<Orders>(context);
     return Container(
       child: Column(
         children: <Widget>[
@@ -160,9 +163,7 @@ class _BookNowState extends State<BookNow> {
                       ? (_tillSelectedDate
                                   .difference(_fromSelectedDate)
                                   .inDays *
-                              double.parse(
-                                  widget.currentCar.carRate.substring(3)))
-                          .toString()
+                                  widget.currentCar.carRate).toString()
                       : '0',
                   style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 20),
                 ),
@@ -184,9 +185,8 @@ class _BookNowState extends State<BookNow> {
                       ? ((_tillSelectedDate
                                       .difference(_fromSelectedDate)
                                       .inDays *
-                                  double.parse(
-                                      widget.currentCar.carRate.substring(3))) *
-                              .09)
+                                  widget.currentCar.carRate *
+                              .09))
                           .toString()
                       : '0',
                   style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 20),
@@ -195,17 +195,44 @@ class _BookNowState extends State<BookNow> {
             ),
           ),
           Spacer(),
-          Container(
-            width: double.infinity,
-            height: 80,
-            decoration: BoxDecoration(color: Colors.red),
-            child: Center(
-              child: Text(
-                'Confirm',
-                style: TextStyle(color: Colors.white, fontSize: 30),
+          GestureDetector(
+            child: Container(
+              width: double.infinity,
+              height: 80,
+              decoration: BoxDecoration(color: Color(0xFFd0f1d7)),
+              child: Center(
+                child: Text(
+                  'Confirm',
+                  style: TextStyle(color: Colors.black, fontFamily: 'HKGrotesk', fontSize: 30),
+                ),
               ),
             ),
-          )
+            onTap: (){
+              orders.addOrder(
+                carName: widget.currentCar.carName,
+                carDuration: _tillSelectedDate != null && _fromSelectedDate != null
+                    ? (_tillSelectedDate
+                    .difference(_fromSelectedDate)
+                    .inDays)
+                    : 0,
+                carAmount: _tillSelectedDate != null && _fromSelectedDate != null
+                    ? double.parse((_tillSelectedDate
+                    .difference(_fromSelectedDate)
+                    .inDays *
+                      widget.currentCar.carRate
+                    ).toString())
+                    : 0,
+                carAdvance:  _tillSelectedDate != null && _fromSelectedDate != null
+                    ? double.parse((_tillSelectedDate
+                    .difference(_fromSelectedDate)
+                    .inDays *
+                    widget.currentCar.carRate *
+                    .09).toString())
+                    : 0
+              );
+              ChangeNotifier();
+            },
+          ),
         ],
       ),
     );

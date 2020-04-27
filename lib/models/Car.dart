@@ -7,7 +7,7 @@ class Car {
   final String carName;
   final carTypes carType;
   final String carEngine;
-  final String carRate;
+  final int carRate;
   final String carImage;
   final String carMake;
   Car({

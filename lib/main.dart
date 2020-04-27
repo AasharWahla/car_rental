@@ -1,9 +1,12 @@
-import './screens/carDisplay_screen.dart';
+import 'package:provider/provider.dart';
 
+import './screens/carDisplay_screen.dart';
+import './providers/orders.dart';
 import './screens/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import './screens/cars_list_screen.dart';
+import './screens/orders_screen.dart';
 void main(){
   runApp(MyApp());
 }
@@ -23,14 +26,18 @@ class _MyAppState extends State<MyApp> {
   }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Car Rental',
-      routes: {
-        '/' :(ctx) => HomeScreen(),
-        CarsList.routeName : (ctx) => CarsList(),
-        CarDisplay.routeName : (ctx)=>CarDisplay(),
-      },
+    return ChangeNotifierProvider(
+      create: (ctx)=>Orders(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Car Rental',
+        routes: {
+          '/' :(ctx) => HomeScreen(),
+          CarsList.routeName : (ctx) => CarsList(),
+          CarDisplay.routeName : (ctx)=>CarDisplay(),
+          OrdersScreen.routeName: (ctx) => OrdersScreen(),
+        },
+      ),
     );
   }
 }

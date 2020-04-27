@@ -211,7 +211,7 @@ class _CarDisplayState extends State<CarDisplay> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                car.carRate,
+                                "PKR ${car.carRate}",
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,

@@ -1,6 +1,7 @@
-import 'package:carrental/screens/carDisplay_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import './carDisplay_screen.dart';
+import './orders_screen.dart';
 import '../carData.dart';
 import '../models/Car.dart';
 
@@ -14,7 +15,15 @@ class _CarsListState extends State<CarsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: Column(
+          children: <Widget>[
+            FlatButton(onPressed: (){
+              Navigator.of(context).pushNamed(OrdersScreen.routeName);
+            }, child: Text('Your Orders'))
+          ],
+        ),
+      ),
       appBar: AppBar(
         leading: Builder(
           builder: (BuildContext context) {
@@ -125,7 +134,7 @@ class CarDisplayTile extends StatelessWidget {
                             textBaseline: TextBaseline.alphabetic,
                             children: <Widget>[
                               Text(
-                                car.carRate,
+                                "PKR ${car.carRate}",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 20),
                               ),
