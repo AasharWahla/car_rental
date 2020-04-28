@@ -18,9 +18,11 @@ class _CarsListState extends State<CarsList> {
       drawer: Drawer(
         child: Column(
           children: <Widget>[
-            FlatButton(onPressed: (){
-              Navigator.of(context).pushNamed(OrdersScreen.routeName);
-            }, child: Text('Your Orders'))
+            FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(OrdersScreen.routeName);
+                },
+                child: Text('Your Orders'))
           ],
         ),
       ),

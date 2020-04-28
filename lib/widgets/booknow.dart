@@ -163,7 +163,8 @@ class _BookNowState extends State<BookNow> {
                       ? (_tillSelectedDate
                                   .difference(_fromSelectedDate)
                                   .inDays *
-                                  widget.currentCar.carRate).toString()
+                              widget.currentCar.carRate)
+                          .toString()
                       : '0',
                   style: TextStyle(fontFamily: 'HKGrotesk', fontSize: 20),
                 ),
@@ -183,9 +184,9 @@ class _BookNowState extends State<BookNow> {
                 Text(
                   _tillSelectedDate != null && _fromSelectedDate != null
                       ? ((_tillSelectedDate
-                                      .difference(_fromSelectedDate)
-                                      .inDays *
-                                  widget.currentCar.carRate *
+                                  .difference(_fromSelectedDate)
+                                  .inDays *
+                              widget.currentCar.carRate *
                               .09))
                           .toString()
                       : '0',
@@ -203,34 +204,37 @@ class _BookNowState extends State<BookNow> {
               child: Center(
                 child: Text(
                   'Confirm',
-                  style: TextStyle(color: Colors.black, fontFamily: 'HKGrotesk', fontSize: 30),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'HKGrotesk',
+                      fontSize: 30),
                 ),
               ),
             ),
-            onTap: (){
+            onTap: () {
               orders.addOrder(
-                carName: widget.currentCar.carName,
-                carDuration: _tillSelectedDate != null && _fromSelectedDate != null
-                    ? (_tillSelectedDate
-                    .difference(_fromSelectedDate)
-                    .inDays)
-                    : 0,
-                carAmount: _tillSelectedDate != null && _fromSelectedDate != null
-                    ? double.parse((_tillSelectedDate
-                    .difference(_fromSelectedDate)
-                    .inDays *
-                      widget.currentCar.carRate
-                    ).toString())
-                    : 0,
-                carAdvance:  _tillSelectedDate != null && _fromSelectedDate != null
-                    ? double.parse((_tillSelectedDate
-                    .difference(_fromSelectedDate)
-                    .inDays *
-                    widget.currentCar.carRate *
-                    .09).toString())
-                    : 0
-              );
-              ChangeNotifier();
+                  currentCar: widget.currentCar,
+                  carDuration: _tillSelectedDate != null &&
+                          _fromSelectedDate != null
+                      ? (_tillSelectedDate.difference(_fromSelectedDate).inDays)
+                      : 0,
+                  carAmount: _tillSelectedDate != null &&
+                          _fromSelectedDate != null
+                      ? double.parse((_tillSelectedDate
+                                  .difference(_fromSelectedDate)
+                                  .inDays *
+                              widget.currentCar.carRate)
+                          .toString())
+                      : 0,
+                  carAdvance:
+                      _tillSelectedDate != null && _fromSelectedDate != null
+                          ? double.parse((_tillSelectedDate
+                                      .difference(_fromSelectedDate)
+                                      .inDays *
+                                  widget.currentCar.carRate *
+                                  .09)
+                              .toString())
+                          : 0);
             },
           ),
         ],

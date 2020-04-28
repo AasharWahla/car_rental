@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/Car.dart';
 import '../widgets/booknow.dart';
+
 class CarDisplay extends StatefulWidget {
   static const routeName = '/routeCarDisplay';
   @override
@@ -10,21 +11,19 @@ class CarDisplay extends StatefulWidget {
 }
 
 class _CarDisplayState extends State<CarDisplay> {
-
-
   void bookNow(BuildContext ctx, Car car) {
     showModalBottomSheet(
-      context: ctx,
-      builder: (_) {
-        return BookNow(currentCar: car,);
-      },
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
+        context: ctx,
+        builder: (_) {
+          return BookNow(
+            currentCar: car,
+          );
+        },
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
-        )
-      )
-    );
+        )));
   }
 
   Car car;
@@ -40,6 +39,19 @@ class _CarDisplayState extends State<CarDisplay> {
         body: SafeArea(
           child: Stack(
             children: <Widget>[
+              Positioned(
+                left: mWidth * 0.02,
+                child: GestureDetector(
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
               Positioned(
                 left: mWidth * .3,
                 bottom: mHeight * .6,

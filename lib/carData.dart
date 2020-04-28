@@ -7,8 +7,7 @@ List<Car> carsList = [
     carType: carTypes.sedan,
     carEngine: "1800 CC",
     carRate: 3000,
-    carImage:
-        "assets/images/grande.png",
+    carImage: "assets/images/grande.png",
     carMake: 'Toyota',
   ),
   Car(
@@ -17,8 +16,7 @@ List<Car> carsList = [
     carType: carTypes.sedan,
     carEngine: "1800 CC",
     carRate: 4000,
-    carImage:
-        "assets/images/camry.png",
+    carImage: "assets/images/camry.png",
     carMake: 'Toyota',
   ),
   Car(
@@ -27,8 +25,7 @@ List<Car> carsList = [
     carType: carTypes.suv,
     carEngine: "2700 CC",
     carRate: 6000,
-    carImage:
-        "assets/images/fortuner.png",
+    carImage: "assets/images/fortuner.png",
     carMake: 'Toyota',
   ),
   Car(
@@ -37,8 +34,7 @@ List<Car> carsList = [
     carType: carTypes.sedan,
     carEngine: "1500 CC",
     carRate: 2500,
-    carImage:
-    "assets/images/yaris.png",
+    carImage: "assets/images/yaris.png",
     carMake: 'Toyota',
   ),
   Car(
@@ -47,8 +43,7 @@ List<Car> carsList = [
     carType: carTypes.suv,
     carEngine: "3500 CC",
     carRate: 9000,
-    carImage:
-        "assets/images/landcruiser.png",
+    carImage: "assets/images/landcruiser.png",
     carMake: 'Toyota',
   ),
   Car(
@@ -57,8 +52,7 @@ List<Car> carsList = [
     carType: carTypes.hatchback,
     carEngine: "1500 CC",
     carRate: 3000,
-    carImage:
-        "assets/images/prius.png",
+    carImage: "assets/images/prius.png",
     carMake: 'Toyota',
   ),
   Car(
@@ -67,8 +61,7 @@ List<Car> carsList = [
     carType: carTypes.truck,
     carEngine: "2200 CC",
     carRate: 5000,
-    carImage:
-        "assets/images/revo.png",
+    carImage: "assets/images/revo.png",
     carMake: 'Toyota',
   ),
   Car(
@@ -77,8 +70,7 @@ List<Car> carsList = [
     carType: carTypes.hatchback,
     carEngine: "1500 CC",
     carRate: 2500,
-    carImage:
-        "assets/images/rush.png",
+    carImage: "assets/images/rush.png",
     carMake: 'Toyota',
   ),
 ];
