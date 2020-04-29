@@ -17,6 +17,7 @@ class _CarsListState extends State<CarsList> {
     return Scaffold(
       drawer: Drawer(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             FlatButton(
                 onPressed: () {

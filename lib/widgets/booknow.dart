@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../models/Car.dart';
 import 'package:provider/provider.dart';
 import '../providers/orders.dart';
+import 'package:rich_alert/rich_alert.dart';
 
 class BookNow extends StatefulWidget {
   final Car currentCar;
@@ -79,7 +80,7 @@ class _BookNowState extends State<BookNow> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(10),
             child: Column(
               children: <Widget>[
                 Text(
@@ -110,7 +111,7 @@ class _BookNowState extends State<BookNow> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -132,7 +133,7 @@ class _BookNowState extends State<BookNow> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -149,7 +150,7 @@ class _BookNowState extends State<BookNow> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -172,7 +173,7 @@ class _BookNowState extends State<BookNow> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -199,7 +200,7 @@ class _BookNowState extends State<BookNow> {
           GestureDetector(
             child: Container(
               width: double.infinity,
-              height: 80,
+              height: 55,
               decoration: BoxDecoration(color: Color(0xFFd0f1d7)),
               child: Center(
                 child: Text(
@@ -212,29 +213,54 @@ class _BookNowState extends State<BookNow> {
               ),
             ),
             onTap: () {
-              orders.addOrder(
-                  currentCar: widget.currentCar,
-                  carDuration: _tillSelectedDate != null &&
-                          _fromSelectedDate != null
-                      ? (_tillSelectedDate.difference(_fromSelectedDate).inDays)
-                      : 0,
-                  carAmount: _tillSelectedDate != null &&
-                          _fromSelectedDate != null
-                      ? double.parse((_tillSelectedDate
-                                  .difference(_fromSelectedDate)
-                                  .inDays *
-                              widget.currentCar.carRate)
-                          .toString())
-                      : 0,
-                  carAdvance:
-                      _tillSelectedDate != null && _fromSelectedDate != null
-                          ? double.parse((_tillSelectedDate
-                                      .difference(_fromSelectedDate)
-                                      .inDays *
-                                  widget.currentCar.carRate *
-                                  .09)
-                              .toString())
-                          : 0);
+              if(_fromSelectedDate == null || _tillSelectedDate == null || _tillSelectedDate.difference(_fromSelectedDate).inDays <= 0){
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return RichAlertDialog( //uses the custom alert dialog
+                        alertTitle: richTitle("Warning !"),
+                        alertSubtitle: richSubtitle("Kindly select the valid dates."),
+                        alertType: RichAlertType.ERROR,
+                      );
+                    }
+                );
+              } else {
+                orders.addOrder(
+                    currentCar: widget.currentCar,
+                    carDuration: _tillSelectedDate != null &&
+                        _fromSelectedDate != null
+                        ? (_tillSelectedDate
+                        .difference(_fromSelectedDate)
+                        .inDays)
+                        : 0,
+                    carAmount: _tillSelectedDate != null &&
+                        _fromSelectedDate != null
+                        ? double.parse((_tillSelectedDate
+                        .difference(_fromSelectedDate)
+                        .inDays *
+                        widget.currentCar.carRate)
+                        .toString())
+                        : 0,
+                    carAdvance:
+                    _tillSelectedDate != null && _fromSelectedDate != null
+                        ? double.parse((_tillSelectedDate
+                        .difference(_fromSelectedDate)
+                        .inDays *
+                        widget.currentCar.carRate *
+                        .09)
+                        .toString())
+                        : 0);
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return RichAlertDialog( //uses the custom alert dialog
+                        alertTitle: richTitle("DONE!"),
+                        alertSubtitle: richSubtitle("The Booking is done successfully. \n You will shortly recieve the confirmation message."),
+                        alertType: RichAlertType.SUCCESS,
+                      );
+                    }
+                );
+              }
             },
           ),
         ],

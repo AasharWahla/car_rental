@@ -104,7 +104,7 @@ class _CarDisplayState extends State<CarDisplay> {
                         ),
                         Image.asset(
                           car.carImage,
-                          scale: .8,
+                          scale: .9,
                         ),
                       ],
                     ),
