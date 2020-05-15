@@ -1,3 +1,4 @@
+import 'package:carrental/screens/car_edit_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './carDisplay_screen.dart';
@@ -23,7 +24,12 @@ class _CarsListState extends State<CarsList> {
                 onPressed: () {
                   Navigator.of(context).pushNamed(OrdersScreen.routeName);
                 },
-                child: Text('Your Orders'))
+                child: Text('Your Orders'),),
+            FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(EditCar.routeName);
+                },
+                child: Text('Edit Cars'),),
           ],
         ),
       ),

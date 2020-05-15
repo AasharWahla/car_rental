@@ -1,3 +1,4 @@
+import 'package:carrental/screens/car_edit_screen.dart';
 import 'package:provider/provider.dart';
 
 import './screens/carDisplay_screen.dart';
@@ -36,6 +37,7 @@ class _MyAppState extends State<MyApp> {
           CarsList.routeName : (ctx) => CarsList(),
           CarDisplay.routeName : (ctx)=>CarDisplay(),
           OrdersScreen.routeName: (ctx) => OrdersScreen(),
+          EditCar.routeName: (ctx) => EditCar()
         },
       ),
     );
