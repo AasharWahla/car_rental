@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "103670297404",
+    "firebase_url": "https://carrental-db.firebaseio.com",
+    "project_id": "carrental-db",
+    "storage_bucket": "carrental-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103670297404:android:14b9f97ea3d705a8dde439",
+        "android_client_info": {
+          "package_name": "com.centricdigi.carrental"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "103670297404-ls99vrkdh11bg3vjr2le1nki6v4k0npl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.centricdigi.carrental",
+            "certificate_hash": "febf1fffcb6fb82df1bff659121ce9f7ac3507b0"
+          }
+        },
+        {
+          "client_id": "103670297404-1msmaod11797hemjbqm58hd10iesklnh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5Pm10VMg40oTXsGrA-9t_Mn1OoRBTqXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "103670297404-1msmaod11797hemjbqm58hd10iesklnh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
