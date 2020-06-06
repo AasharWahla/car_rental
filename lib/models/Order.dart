@@ -1,9 +1,10 @@
 class Order {
-  String oStatus;
   String oID;
+  String oStatus;
   String selectedCar;
   String dateFrom;
   String dateTo;
+  int advance;
   int total;
 
   Order(
@@ -12,5 +13,6 @@ class Order {
       this.selectedCar,
       this.dateFrom,
       this.dateTo,
+      this.advance,
       this.total});
 }

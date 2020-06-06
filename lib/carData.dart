@@ -7,7 +7,8 @@ List<Car> carsList = [
     carType: carTypes.sedan,
     carEngine: "1800 CC",
     carRate: 3000,
-    carImage: "assets/images/grande.png",
+    carImage:
+        "https://www.toyota-indus.com/wp-content/uploads/2016/10/range-1.8.png",
     carMake: 'Toyota',
   ),
   Car(
@@ -16,7 +17,8 @@ List<Car> carsList = [
     carType: carTypes.sedan,
     carEngine: "1800 CC",
     carRate: 4000,
-    carImage: "assets/images/camry.png",
+    carImage:
+        "https://www.toyota-indus.com/wp-content/uploads/2018/01/camry-hybrid-discover-1.png",
     carMake: 'Toyota',
   ),
   Car(
@@ -25,7 +27,8 @@ List<Car> carsList = [
     carType: carTypes.suv,
     carEngine: "2700 CC",
     carRate: 6000,
-    carImage: "assets/images/fortuner.png",
+    carImage:
+        "https://www.toyota-indus.com/wp-content/uploads/2016/08/fortuner-range_v2.png",
     carMake: 'Toyota',
   ),
   Car(
@@ -34,7 +37,8 @@ List<Car> carsList = [
     carType: carTypes.sedan,
     carEngine: "1500 CC",
     carRate: 2500,
-    carImage: "assets/images/yaris.png",
+    carImage:
+        "https://www.toyota-indus.com/wp-content/uploads/2020/03/yaris-explore.png",
     carMake: 'Toyota',
   ),
   Car(
@@ -43,7 +47,8 @@ List<Car> carsList = [
     carType: carTypes.suv,
     carEngine: "3500 CC",
     carRate: 9000,
-    carImage: "assets/images/landcruiser.png",
+    carImage:
+        "https://www.toyota-indus.com/wp-content/uploads/2016/08/prado-1.png",
     carMake: 'Toyota',
   ),
   Car(
@@ -52,7 +57,8 @@ List<Car> carsList = [
     carType: carTypes.hatchback,
     carEngine: "1500 CC",
     carRate: 3000,
-    carImage: "assets/images/prius.png",
+    carImage:
+        "https://www.toyota-indus.com/wp-content/uploads/2016/08/prius-1.png",
     carMake: 'Toyota',
   ),
   Car(
@@ -61,7 +67,8 @@ List<Car> carsList = [
     carType: carTypes.truck,
     carEngine: "2200 CC",
     carRate: 5000,
-    carImage: "assets/images/revo.png",
+    carImage:
+        "https://www.toyota-indus.com/wp-content/uploads/2016/08/Revo-Range.png",
     carMake: 'Toyota',
   ),
   Car(
@@ -70,7 +77,8 @@ List<Car> carsList = [
     carType: carTypes.hatchback,
     carEngine: "1500 CC",
     carRate: 2500,
-    carImage: "assets/images/rush.png",
+    carImage:
+        "https://www.toyota-indus.com/wp-content/uploads/2018/09/Discover-The-Range-Rush.png",
     carMake: 'Toyota',
   ),
 ];

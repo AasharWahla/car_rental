@@ -102,7 +102,7 @@ class _CarDisplayState extends State<CarDisplay> {
                         SizedBox(
                           width: mWidth * .1,
                         ),
-                        Image.asset(
+                        Image.network(
                           car.carImage,
                           scale: .9,
                         ),

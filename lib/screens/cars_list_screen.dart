@@ -21,15 +21,17 @@ class _CarsListState extends State<CarsList> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(OrdersScreen.routeName);
-                },
-                child: Text('Your Orders'),),
+              onPressed: () {
+                Navigator.of(context).pushNamed(OrdersScreen.routeName);
+              },
+              child: Text('Your Orders'),
+            ),
             FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(EditCar.routeName);
-                },
-                child: Text('Edit Cars'),),
+              onPressed: () {
+                Navigator.of(context).pushNamed(EditCar.routeName);
+              },
+              child: Text('Edit Cars'),
+            ),
           ],
         ),
       ),
@@ -128,7 +130,7 @@ class CarDisplayTile extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
-                        child: Image.asset(
+                        child: Image.network(
                           car.carImage,
                           scale: 1.5,
                         ),
