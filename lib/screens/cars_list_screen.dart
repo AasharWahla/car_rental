@@ -5,16 +5,28 @@ import './carDisplay_screen.dart';
 import './orders_screen.dart';
 import '../carData.dart';
 import '../models/Car.dart';
+import 'package:provider/provider.dart';
+import '../models/User.dart';
+import '../providers/currentUser.dart';
+import '../services/auth.dart';
 
 class CarsList extends StatefulWidget {
+  final activeUser;
+  CarsList({this.activeUser});
   static const routeName = '/carslist';
   @override
   _CarsListState createState() => _CarsListState();
 }
 
 class _CarsListState extends State<CarsList> {
+  final _auth = AuthService();
   @override
   Widget build(BuildContext context) {
+    User userWithUserID = widget.activeUser; // userWithUserID is the user
+    // with only userID which we get listening to the stream.
+    Provider.of<CurrentUser>(context).setActiveUser(userWithUserID); // Setting
+    // the active user in provider class.
+    User activeUser = Provider.of<CurrentUser>(context).getActiveUser();
     return Scaffold(
       drawer: Drawer(
         child: Column(
@@ -28,7 +40,13 @@ class _CarsListState extends State<CarsList> {
             ),
             FlatButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(EditCar.routeName);
+                _auth.signOutUser();
+              },
+              child: Text('Sign Out'),
+            ),
+            FlatButton(
+              onPressed: () {
+                print(activeUser.userID);
               },
               child: Text('Edit Cars'),
             ),

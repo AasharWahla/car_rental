@@ -1,8 +1,11 @@
 import 'dart:math';
+import 'package:carrental/providers/currentUser.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/Car.dart';
 import '../widgets/booknow.dart';
+import 'package:carrental/models/User.dart';
 
 class CarDisplay extends StatefulWidget {
   static const routeName = '/routeCarDisplay';

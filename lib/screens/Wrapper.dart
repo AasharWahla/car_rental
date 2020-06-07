@@ -1,5 +1,7 @@
 import 'package:carrental/models/User.dart';
+import 'package:carrental/providers/currentUser.dart';
 import 'package:carrental/screens/carDisplay_screen.dart';
+import 'package:carrental/screens/cars_list_screen.dart';
 import 'package:carrental/screens/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +15,12 @@ class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    return (user == null) ? HomeScreen() : CarDisplay();
+    return (user == null)
+        ? HomeScreen()
+        : ChangeNotifierProvider.value(
+            value: CurrentUser(),
+            child: CarsList(
+              activeUser: user,
+            ));
   }
 }

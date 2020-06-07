@@ -1,4 +1,10 @@
+import 'package:carrental/models/User.dart';
+import 'package:carrental/providers/currentUser.dart';
+import 'package:carrental/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../services/database.dart';
 
 class Register extends StatefulWidget {
   static const routeName = '/RegisterScreen';
@@ -7,6 +13,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final _dbService = DatabaseService();
+  final _auth = AuthService();
   String name;
   String email;
   String phoneNumber;
@@ -157,7 +165,25 @@ class _RegisterState extends State<Register> {
                   ),
                   elevation: 20,
                   color: Colors.white,
-                  onPressed: () {},
+                  onPressed: () async {
+                    User toRegister = User(
+                      userEmail: email,
+                      userRole: 'C',
+                      userName: name,
+                      userID: null,
+                    );
+                    final result = await _auth.registerUserWithEmailPassword(
+                        toRegister, password);
+                    final toUpload = User(
+                      userID: result.userID,
+                      userName: name,
+                      userRole: 'C',
+                      userEmail: email,
+                    );
+                    await _dbService.setUserData(result);
+                    Provider.of<CurrentUser>(context, listen: false)
+                        .setActiveUser(result);
+                  },
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                     child: Text(
