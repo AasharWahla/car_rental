@@ -9,7 +9,7 @@ class CurrentUser with ChangeNotifier {
   final CollectionReference usersCollection =
       Firestore.instance.collection('users');
 
-  void setActiveUser(User toSet) async {
+  Future<void> setActiveUser(User toSet) async {
     // this function will get data like userID from the auth.dart file and
     // will set active user.
     final result = await usersCollection.document(toSet.userID).get();

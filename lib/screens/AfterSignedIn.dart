@@ -13,19 +13,39 @@ class AfterSignedIn extends StatefulWidget {
 }
 
 class _AfterSignedInState extends State<AfterSignedIn> {
+  bool isLoading = true;
+  @override
+  void didChangeDependencies() async {
+    await Provider.of<CurrentUser>(context)
+        .setActiveUser(widget.user)
+        .then((value) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+    print('assigning the value');
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-    print('user found');
-    Navigator.pushReplacementNamed(context, CarsList.routeName);
-    print('user found 2');
-    return CarsList(
-      activeUser: widget.user,
+    Future.delayed(Duration(seconds: 5));
+    return isLoading
+        ? IsLoading()
+        : CarsList(
+            activeUser: widget.user,
+          );
+  }
+}
+
+class IsLoading extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Loading"),
+      ),
     );
-//    return ChangeNotifierProvider(
-//      create: (_) => CurrentUser(),
-//      child: CarsList(
-//        activeUser: widget.user,
-//      ),
-//    );
   }
 }

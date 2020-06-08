@@ -19,28 +19,13 @@ class CarsList extends StatefulWidget {
 }
 
 class _CarsListState extends State<CarsList> {
-  @override
-  void initState() {
-    print("Going to build cars list.");
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    print("Closing the carList");
-    // TODO: implement dispose
-    super.dispose();
-  }
-
   final _auth = AuthService();
   @override
   Widget build(BuildContext context) {
-    print('in cars list');
-    User userWithUserID = widget.activeUser; // userWithUserID is the user
+//    User userWithUserID = ; // userWithUserID is the user
     // with only userID which we get listening to the stream.
-    Provider.of<CurrentUser>(context).setActiveUser(userWithUserID); // Setting
     // the active user in provider class.
+
     User activeUser = Provider.of<CurrentUser>(context).getActiveUser();
     return Scaffold(
       drawer: Drawer(
@@ -61,6 +46,7 @@ class _CarsListState extends State<CarsList> {
                       fontWeight: FontWeight.bold,
                       fontSize: 40,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),

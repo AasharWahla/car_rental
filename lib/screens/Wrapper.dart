@@ -21,8 +21,8 @@ class _WrapperState extends State<Wrapper> {
     } else {
       return ChangeNotifierProvider(
         create: (_) => CurrentUser(),
-        child: CarsList(
-          activeUser: user,
+        child: AfterSignedIn(
+          user,
         ),
       );
     }
