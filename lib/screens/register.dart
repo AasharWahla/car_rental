@@ -2,9 +2,11 @@ import 'package:carrental/models/User.dart';
 import 'package:carrental/providers/currentUser.dart';
 import 'package:carrental/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/database.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Register extends StatefulWidget {
   static const routeName = '/RegisterScreen';
@@ -13,6 +15,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  bool isLoading = false;
   final _dbService = DatabaseService();
   final _auth = AuthService();
   String name;
@@ -38,168 +41,198 @@ class _RegisterState extends State<Register> {
           ),
         ),
       ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  validator: (val) {
-                    if (val.isEmpty) {
-                      return "This Field can not be empty.";
-                    } else if (val.length < 6) {
-                      return "Minimum Length is six";
-                    } else {
-                      return null;
-                    }
-                  },
-                  autocorrect: false,
-                  onChanged: (val) {
-                    name = val;
-                  },
-                  decoration: InputDecoration(
-                    labelText: "Name",
-                    icon: Icon(Icons.account_circle),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.white,
+      body: (isLoading)
+          ? LoadingWidget()
+          : Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 30,
                       ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  validator: (val) {
-                    if (val.isEmpty) {
-                      return "This Field can not be empty.";
-                    } else if (val.length < 6) {
-                      return "Minimum Length is six";
-                    } else {
-                      return null;
-                    }
-                  },
-                  autocorrect: false,
-                  onChanged: (val) {
-                    phoneNumber = val;
-                  },
-                  decoration: InputDecoration(
-                    labelText: "Mobile # ",
-                    icon: Icon(Icons.phone),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.white,
+                      TextFormField(
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return "This Field can not be empty.";
+                          } else if (val.length < 6) {
+                            return "Minimum Length is six";
+                          } else {
+                            return null;
+                          }
+                        },
+                        autocorrect: false,
+                        onChanged: (val) {
+                          name = val;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Name",
+                          icon: Icon(Icons.account_circle),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  validator: (val) {
-                    if (val.isEmpty) {
-                      return "This Field can not be empty.";
-                    } else if (!val.contains("@")) {
-                      return "Invalid Email";
-                    } else {
-                      return null;
-                    }
-                  },
-                  autocorrect: false,
-                  onChanged: (val) {
-                    email = val;
-                  },
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    icon: Icon(Icons.email),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.white,
+                      SizedBox(
+                        height: 20,
                       ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  validator: (val) {
-                    if (val.isEmpty) {
-                      return "This Field can not be empty.";
-                    } else if (val.length < 6) {
-                      return "Minimum Length is six";
-                    } else {
-                      return null;
-                    }
-                  },
-                  obscureText: true,
-                  autocorrect: false,
-                  onChanged: (val) {
-                    password = val;
-                  },
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    icon: Icon(Icons.vpn_key),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.white,
+                      TextFormField(
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return "This Field can not be empty.";
+                          } else if (val.length < 6) {
+                            return "Minimum Length is six";
+                          } else {
+                            return null;
+                          }
+                        },
+                        autocorrect: false,
+                        onChanged: (val) {
+                          phoneNumber = val;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Mobile # ",
+                          icon: Icon(Icons.phone),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                RaisedButton(
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return "This Field can not be empty.";
+                          } else if (!val.contains("@")) {
+                            return "Invalid Email";
+                          } else {
+                            return null;
+                          }
+                        },
+                        autocorrect: false,
+                        onChanged: (val) {
+                          email = val;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Email",
+                          icon: Icon(Icons.email),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return "This Field can not be empty.";
+                          } else if (val.length < 6) {
+                            return "Minimum Length is six";
+                          } else {
+                            return null;
+                          }
+                        },
+                        obscureText: true,
+                        autocorrect: false,
+                        onChanged: (val) {
+                          password = val;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Password",
+                          icon: Icon(Icons.vpn_key),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      RaisedButton(
 //                  focusColor: Colors.blue,
-                  splashColor: Colors.green,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                        splashColor: Colors.green,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        elevation: 20,
+                        color: Colors.white,
+                        onPressed: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          User toRegister = User(
+                            userEmail: email,
+                            userRole: 'C',
+                            userName: name,
+                            userID: null,
+                          );
+                          final result =
+                              await _auth.registerUserWithEmailPassword(
+                                  toRegister, password);
+                          Navigator.pop(context);
+                          final toUpload = User(
+                            userID: result.userID,
+                            userName: name,
+                            userRole: 'C',
+                            userEmail: email,
+                          );
+                          await _dbService.setUserData(toUpload);
+                          Provider.of<CurrentUser>(context, listen: false)
+                              .setActiveUser(result);
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 30),
+                          child: Text(
+                            "Register",
+                            style: TextStyle(
+                              fontFamily: 'HKGrotesk',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                  elevation: 20,
-                  color: Colors.white,
-                  onPressed: () async {
-                    User toRegister = User(
-                      userEmail: email,
-                      userRole: 'C',
-                      userName: name,
-                      userID: null,
-                    );
-                    final result = await _auth.registerUserWithEmailPassword(
-                        toRegister, password);
-                    final toUpload = User(
-                      userID: result.userID,
-                      userName: name,
-                      userRole: 'C',
-                      userEmail: email,
-                    );
-                    await _dbService.setUserData(result);
-                    Provider.of<CurrentUser>(context, listen: false)
-                        .setActiveUser(result);
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-                    child: Text(
-                      "Register",
-                      style: TextStyle(
-                        fontFamily: 'HKGrotesk',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                )
-              ],
+                ),
+              ),
             ),
+    );
+  }
+}
+
+class LoadingWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200,
+      width: double.infinity,
+//      color: Colors.white.withOpacity(0.5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(child: Container()),
+          SpinKitFoldingCube(
+            color: Colors.white,
+            size: 50,
           ),
-        ),
+          Expanded(child: Container()),
+        ],
       ),
     );
   }

@@ -12,7 +12,9 @@ class AuthService {
 
   // get the stream if the user is login or not.
   Stream<User> get user {
+    print('Looking for User');
     return _auth.onAuthStateChanged.map(_userFromFirebaseUser);
+    ;
   }
 
   // the function which we will use to convert the user we got from firebase
@@ -35,6 +37,18 @@ class AuthService {
   // Sign in with email password
   // when user sign in the information of the user should also be fetched and
   // stored in Users object and that will be shared across the device.
+  Future<User> signInUserWithEmailPassword(
+      {String email, String password}) async {
+    try {
+      final AuthResult result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      FirebaseUser userToReturn = result.user;
+      return _userFromFirebaseUser(userToReturn);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 
   // Register with email password
   // When user will register the information of the user should be stored in

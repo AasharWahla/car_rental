@@ -11,7 +11,7 @@ import '../providers/currentUser.dart';
 import '../services/auth.dart';
 
 class CarsList extends StatefulWidget {
-  final activeUser;
+  final User activeUser;
   CarsList({this.activeUser});
   static const routeName = '/carslist';
   @override
@@ -19,9 +19,24 @@ class CarsList extends StatefulWidget {
 }
 
 class _CarsListState extends State<CarsList> {
+  @override
+  void initState() {
+    print("Going to build cars list.");
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    print("Closing the carList");
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   final _auth = AuthService();
   @override
   Widget build(BuildContext context) {
+    print('in cars list');
     User userWithUserID = widget.activeUser; // userWithUserID is the user
     // with only userID which we get listening to the stream.
     Provider.of<CurrentUser>(context).setActiveUser(userWithUserID); // Setting
@@ -30,8 +45,26 @@ class _CarsListState extends State<CarsList> {
     return Scaffold(
       drawer: Drawer(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
+            Container(
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.account_circle,
+                    size: 80,
+                  ),
+                  Text(
+                    activeUser.userName,
+                    style: TextStyle(
+                      fontFamily: 'HKGrotesk',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             FlatButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(OrdersScreen.routeName);
@@ -39,16 +72,14 @@ class _CarsListState extends State<CarsList> {
               child: Text('Your Orders'),
             ),
             FlatButton(
+              onPressed: () {},
+              child: Text('Edit Cars'),
+            ),
+            FlatButton(
               onPressed: () {
                 _auth.signOutUser();
               },
               child: Text('Sign Out'),
-            ),
-            FlatButton(
-              onPressed: () {
-                print(activeUser.userID);
-              },
-              child: Text('Edit Cars'),
             ),
           ],
         ),
@@ -70,18 +101,6 @@ class _CarsListState extends State<CarsList> {
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-        actions: <Widget>[
-          Container(
-            margin: EdgeInsets.only(left: 10),
-            child: Icon(
-              Icons.search,
-              color: Colors.black,
-            ),
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * .05,
-          ),
-        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

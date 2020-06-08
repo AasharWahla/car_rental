@@ -6,6 +6,10 @@ class DatabaseService {
       Firestore.instance.collection('users');
 
   Future<void> setUserData(User toUpload) async {
+    print('Uploading user data 1234');
+    print(toUpload.userName);
+    print(toUpload.userEmail);
+
     await usersCollection.document(toUpload.userID).setData({
       'userEmail': toUpload.userEmail,
       'userName': toUpload.userName,

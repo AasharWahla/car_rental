@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../services/auth.dart';
 
 class SingIn extends StatefulWidget {
   static const routeName = '/SignIn';
@@ -7,6 +8,14 @@ class SingIn extends StatefulWidget {
 }
 
 class _SingInState extends State<SingIn> {
+  @override
+  void dispose() {
+    print('finishing the signin!');
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  final _auth = AuthService();
   String email;
   String password;
   final _formKey = GlobalKey<FormState>();
@@ -111,8 +120,11 @@ class _SingInState extends State<SingIn> {
                           ),
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         _formKey.currentState.validate();
+                        await _auth.signInUserWithEmailPassword(
+                            email: email, password: password);
+                        Navigator.pop(context);
                       },
                     )
                   ],
