@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import '../models/User.dart';
 
 class AuthService {
@@ -14,7 +13,6 @@ class AuthService {
   Stream<User> get user {
     print('Looking for User');
     return _auth.onAuthStateChanged.map(_userFromFirebaseUser);
-    ;
   }
 
   // the function which we will use to convert the user we got from firebase

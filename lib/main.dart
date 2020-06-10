@@ -40,6 +40,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Car Rental',
+//        home: Testing(),
         home: Wrapper(),
         routes: {
 //          '/': (ctx) => Testing(),

@@ -4,7 +4,7 @@ List<Car> carsList = [
   Car(
     carID: '001',
     carName: 'Altis Grande',
-    carType: carTypes.sedan,
+    carType: 'Sedan',
     carEngine: "1800 CC",
     carRate: 3000,
     carImage:
@@ -14,7 +14,7 @@ List<Car> carsList = [
   Car(
     carID: '002',
     carName: 'Camry',
-    carType: carTypes.sedan,
+    carType: 'Sedan',
     carEngine: "1800 CC",
     carRate: 4000,
     carImage:
@@ -24,7 +24,7 @@ List<Car> carsList = [
   Car(
     carID: '003',
     carName: 'Fortuner',
-    carType: carTypes.suv,
+    carType: 'SUV',
     carEngine: "2700 CC",
     carRate: 6000,
     carImage:
@@ -34,7 +34,7 @@ List<Car> carsList = [
   Car(
     carID: '007',
     carName: 'Yaris',
-    carType: carTypes.sedan,
+    carType: 'Sedan',
     carEngine: "1500 CC",
     carRate: 2500,
     carImage:
@@ -44,7 +44,7 @@ List<Car> carsList = [
   Car(
     carID: '004',
     carName: 'Land Cruiser',
-    carType: carTypes.suv,
+    carType: 'SUV',
     carEngine: "3500 CC",
     carRate: 9000,
     carImage:
@@ -54,7 +54,7 @@ List<Car> carsList = [
   Car(
     carID: '005',
     carName: 'Prius',
-    carType: carTypes.hatchback,
+    carType: "Hatchback",
     carEngine: "1500 CC",
     carRate: 3000,
     carImage:
@@ -64,7 +64,7 @@ List<Car> carsList = [
   Car(
     carID: '006',
     carName: 'Revo',
-    carType: carTypes.truck,
+    carType: 'Truck',
     carEngine: "2200 CC",
     carRate: 5000,
     carImage:
@@ -72,9 +72,9 @@ List<Car> carsList = [
     carMake: 'Toyota',
   ),
   Car(
-    carID: '007',
+    carID: '008',
     carName: 'Rush',
-    carType: carTypes.hatchback,
+    carType: 'Hatchback',
     carEngine: "1500 CC",
     carRate: 2500,
     carImage:

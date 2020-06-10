@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './carDisplay_screen.dart';
 import './orders_screen.dart';
-import '../carData.dart';
 import '../models/Car.dart';
 import 'package:provider/provider.dart';
 import '../models/User.dart';
 import '../providers/currentUser.dart';
 import '../services/auth.dart';
+import '../services/database.dart';
 
 class CarsList extends StatefulWidget {
   final User activeUser;
@@ -19,7 +19,21 @@ class CarsList extends StatefulWidget {
 }
 
 class _CarsListState extends State<CarsList> {
+  final _dbConnection = DatabaseService();
   final _auth = AuthService();
+  List<Car> carsList;
+  bool isLoading = true;
+
+  @override
+  void didChangeDependencies() async {
+    carsList = await _dbConnection.getCarsData();
+    setState(() {
+      isLoading = false;
+    });
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
 //    User userWithUserID = ; // userWithUserID is the user
@@ -88,27 +102,29 @@ class _CarsListState extends State<CarsList> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Text(
-                "Select the Car which suites you the best.",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+      body: (isLoading)
+          ? Container(color: Colors.blue)
+          : SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "Select the Car which suites you the best.",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    Column(
+                      children: carsList.map((car) {
+                        return CarDisplayTile(car);
+                      }).toList(),
+                    ),
+                  ],
                 ),
-                textAlign: TextAlign.left,
               ),
-              Column(
-                children: carsList.map((car) {
-                  return CarDisplayTile(car);
-                }).toList(),
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

@@ -5,7 +5,7 @@ enum carTypes { sedan, crossover, suv, hatchback, truck, convertible }
 class Car {
   final String carID;
   final String carName;
-  final carTypes carType;
+  final String carType;
   final String carEngine;
   final int carRate;
   final String carImage;
