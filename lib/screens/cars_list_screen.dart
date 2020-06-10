@@ -1,4 +1,5 @@
 import 'package:carrental/screens/car_edit_screen.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './carDisplay_screen.dart';
@@ -41,70 +42,71 @@ class _CarsListState extends State<CarsList> {
     // the active user in provider class.
 
     User activeUser = Provider.of<CurrentUser>(context).getActiveUser();
-    return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Container(
+    return (isLoading)
+        ? IsLoading()
+        : Scaffold(
+            drawer: Drawer(
               child: Column(
-                children: [
-                  Icon(
-                    Icons.account_circle,
-                    size: 80,
-                  ),
-                  Text(
-                    activeUser.userName,
-                    style: TextStyle(
-                      fontFamily: 'HKGrotesk',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.account_circle,
+                          size: 80,
+                        ),
+                        Text(
+                          activeUser.userName,
+                          style: TextStyle(
+                            fontFamily: 'HKGrotesk',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 40,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
-                    textAlign: TextAlign.center,
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(OrdersScreen.routeName);
+                    },
+                    child: Text('Your Orders'),
+                  ),
+                  FlatButton(
+                    onPressed: () {},
+                    child: Text('Edit Cars'),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      _auth.signOutUser();
+                    },
+                    child: Text('Sign Out'),
                   ),
                 ],
               ),
             ),
-            FlatButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(OrdersScreen.routeName);
-              },
-              child: Text('Your Orders'),
-            ),
-            FlatButton(
-              onPressed: () {},
-              child: Text('Edit Cars'),
-            ),
-            FlatButton(
-              onPressed: () {
-                _auth.signOutUser();
-              },
-              child: Text('Sign Out'),
-            ),
-          ],
-        ),
-      ),
-      appBar: AppBar(
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.black,
+            appBar: AppBar(
+              leading: Builder(
+                builder: (BuildContext context) {
+                  return IconButton(
+                    icon: const Icon(
+                      Icons.menu,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                    tooltip:
+                        MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  );
+                },
               ),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-            );
-          },
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: (isLoading)
-          ? Container(color: Colors.blue)
-          : SafeArea(
+              backgroundColor: Colors.white,
+              elevation: 0,
+            ),
+            body: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
@@ -125,7 +127,7 @@ class _CarsListState extends State<CarsList> {
                 ),
               ),
             ),
-    );
+          );
   }
 }
 
@@ -233,5 +235,27 @@ class CarDisplayTile extends StatelessWidget {
           Navigator.of(context)
               .pushNamed(CarDisplay.routeName, arguments: {'car': car});
         });
+  }
+}
+
+class IsLoading extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFFD0F1D7),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: double.infinity,
+          ),
+          SpinKitFoldingCube(
+            color: Colors.green,
+            size: 50,
+          ),
+        ],
+      ),
+    );
   }
 }

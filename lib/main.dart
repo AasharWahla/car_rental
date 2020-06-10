@@ -6,7 +6,6 @@ import 'package:carrental/testing.dart';
 import 'package:provider/provider.dart';
 import './screens/register.dart';
 import './screens/singIn.dart';
-
 import './screens/carDisplay_screen.dart';
 import './providers/orders.dart';
 import './screens/homeScreen.dart';
@@ -35,6 +34,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    // getting value of user
     return StreamProvider<User>.value(
       value: AuthService().user,
       child: MaterialApp(

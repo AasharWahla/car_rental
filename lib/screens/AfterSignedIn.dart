@@ -1,5 +1,7 @@
 import 'package:carrental/models/User.dart';
 import 'package:carrental/providers/currentUser.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/User.dart';
@@ -30,7 +32,6 @@ class _AfterSignedInState extends State<AfterSignedIn> {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 5));
     return isLoading
         ? IsLoading()
         : CarsList(
@@ -43,8 +44,19 @@ class IsLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Loading"),
+      backgroundColor: Color(0xFFD0F1D7),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: double.infinity,
+          ),
+          SpinKitFoldingCube(
+            color: Colors.green,
+            size: 50,
+          ),
+        ],
       ),
     );
   }
