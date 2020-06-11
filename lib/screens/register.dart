@@ -20,30 +20,29 @@ class _RegisterState extends State<Register> {
   final _auth = AuthService();
   String name;
   String email;
-  String phoneNumber;
   String password;
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFD0F1D7),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Center(
-          child: Text(
-            'Register Screen',
-            style: TextStyle(
-              fontFamily: 'HKGrotesk',
-              fontWeight: FontWeight.bold,
-              fontSize: 40,
+    return (isLoading)
+        ? IsLoading()
+        : Scaffold(
+            backgroundColor: Color(0xFFD0F1D7),
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: Center(
+                child: Text(
+                  'Register Screen',
+                  style: TextStyle(
+                    fontFamily: 'HKGrotesk',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40,
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
-      body: (isLoading)
-          ? LoadingWidget()
-          : Form(
+            body: Form(
               key: _formKey,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -70,33 +69,6 @@ class _RegisterState extends State<Register> {
                         decoration: InputDecoration(
                           labelText: "Name",
                           icon: Icon(Icons.account_circle),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return "This Field can not be empty.";
-                          } else if (val.length < 6) {
-                            return "Minimum Length is six";
-                          } else {
-                            return null;
-                          }
-                        },
-                        autocorrect: false,
-                        onChanged: (val) {
-                          phoneNumber = val;
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Mobile # ",
-                          icon: Icon(Icons.phone),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Colors.white,
@@ -184,15 +156,21 @@ class _RegisterState extends State<Register> {
                               await _auth.registerUserWithEmailPassword(
                                   toRegister, password);
                           Navigator.pop(context);
-                          final toUpload = User(
-                            userID: result.userID,
-                            userName: name,
-                            userRole: 'C',
-                            userEmail: email,
-                          );
-                          await _dbService.setUserData(toUpload);
-                          Provider.of<CurrentUser>(context, listen: false)
-                              .setActiveUser(result);
+                          if (result != null) {
+                            final toUpload = User(
+                              userID: result.userID,
+                              userName: name,
+                              userRole: 'C',
+                              userEmail: email,
+                            );
+                            await _dbService.setUserData(toUpload);
+                            Provider.of<CurrentUser>(context, listen: false)
+                                .setActiveUser(result);
+                          } else {
+                            setState(() {
+                              isLoading = false;
+                            });
+                          }
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -212,26 +190,26 @@ class _RegisterState extends State<Register> {
                 ),
               ),
             ),
-    );
+          );
   }
 }
 
-class LoadingWidget extends StatelessWidget {
+class IsLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      width: double.infinity,
-//      color: Colors.white.withOpacity(0.5),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Scaffold(
+      backgroundColor: Color(0xFFD0F1D7),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(child: Container()),
+          SizedBox(
+            width: double.infinity,
+          ),
           SpinKitFoldingCube(
-            color: Colors.white,
+            color: Colors.green,
             size: 50,
           ),
-          Expanded(child: Container()),
         ],
       ),
     );

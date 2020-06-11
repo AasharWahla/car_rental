@@ -1,4 +1,5 @@
 class Order {
+  String userId;
   String oID;
   String oStatus;
   String selectedCar;
@@ -9,6 +10,7 @@ class Order {
 
   Order(
       {this.oID,
+      this.userId,
       this.oStatus,
       this.selectedCar,
       this.dateFrom,

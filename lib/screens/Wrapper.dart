@@ -19,12 +19,7 @@ class _WrapperState extends State<Wrapper> {
     if (user == null) {
       return HomeScreen();
     } else {
-      return ChangeNotifierProvider(
-        create: (_) => CurrentUser(),
-        child: AfterSignedIn(
-          user,
-        ),
-      );
+      return AfterSignedIn(user);
     }
   }
 }

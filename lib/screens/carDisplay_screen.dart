@@ -14,12 +14,14 @@ class CarDisplay extends StatefulWidget {
 }
 
 class _CarDisplayState extends State<CarDisplay> {
-  void bookNow(BuildContext ctx, Car car) {
+  User activeUser = User();
+  void bookNow(BuildContext ctx, Car car, User activeUser) {
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
           return BookNow(
             currentCar: car,
+            activeUser: Provider.of<CurrentUser>(context).getActiveUser(),
           );
         },
         shape: RoundedRectangleBorder(
@@ -30,6 +32,7 @@ class _CarDisplayState extends State<CarDisplay> {
   }
 
   Car car;
+
   @override
   Widget build(BuildContext context) {
     final Map<String, Object> receivedArguments =
@@ -105,9 +108,12 @@ class _CarDisplayState extends State<CarDisplay> {
                         SizedBox(
                           width: mWidth * .1,
                         ),
-                        Image.network(
-                          car.carImage,
-                          scale: .9,
+                        Hero(
+                          tag: car.carID,
+                          child: Image.network(
+                            car.carImage,
+                            scale: .9,
+                          ),
                         ),
                       ],
                     ),
@@ -162,7 +168,7 @@ class _CarDisplayState extends State<CarDisplay> {
                                 bottom: 0,
                                 right: mHeight * .03,
                                 child: Text(
-                                  carType(car),
+                                  car.carType,
                                   style: TextStyle(
                                       fontSize: 20, fontFamily: 'HKGrotesk'),
                                 ),
@@ -298,7 +304,7 @@ class _CarDisplayState extends State<CarDisplay> {
                             fontWeight: FontWeight.bold,
                             fontFamily: 'HKGrotesk'),
                       ),
-                      onTap: () => bookNow(context, car),
+                      onTap: () => bookNow(context, car, activeUser),
                     ),
                   ),
                 ),
@@ -306,28 +312,5 @@ class _CarDisplayState extends State<CarDisplay> {
             ],
           ),
         ));
-  }
-}
-
-String carType(Car car) {
-  if (car.carType == carTypes.sedan) {
-    return 'Sedan';
-  }
-  if (car.carType == carTypes.convertible) {
-    return 'Convertible';
-  }
-  if (car.carType == carTypes.crossover) {
-    return 'CrossOver';
-  }
-  if (car.carType == carTypes.suv) {
-    return 'SUV';
-  }
-  if (car.carType == carTypes.hatchback) {
-    return 'Hatchback';
-  }
-  if (car.carType == carTypes.truck) {
-    return 'Truck';
-  } else {
-    return "";
   }
 }

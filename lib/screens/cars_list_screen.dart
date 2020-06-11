@@ -171,9 +171,12 @@ class CarDisplayTile extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
-                        child: Image.network(
-                          car.carImage,
-                          scale: 1.5,
+                        child: Hero(
+                          tag: car.carID,
+                          child: Image.network(
+                            car.carImage,
+                            scale: 1.5,
+                          ),
                         ),
                       ),
                       SizedBox(
