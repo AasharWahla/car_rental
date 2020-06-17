@@ -31,16 +31,11 @@ class _CarsListState extends State<CarsList> {
     setState(() {
       isLoading = false;
     });
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-//    User userWithUserID = ; // userWithUserID is the user
-    // with only userID which we get listening to the stream.
-    // the active user in provider class.
-
     User activeUser = Provider.of<CurrentUser>(context).getActiveUser();
     return (isLoading)
         ? IsLoading()
@@ -74,10 +69,14 @@ class _CarsListState extends State<CarsList> {
                     },
                     child: Text('Your Orders'),
                   ),
-                  FlatButton(
-                    onPressed: () {},
-                    child: Text('Edit Cars'),
-                  ),
+                  (activeUser.userRole == 'A' || activeUser.userRole == 'a')
+                      ? FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(EditCar.routeName);
+                          },
+                          child: Text('Edit Cars'),
+                        )
+                      : Container(),
                   FlatButton(
                     onPressed: () {
                       _auth.signOutUser();
