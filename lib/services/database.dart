@@ -86,4 +86,45 @@ class DatabaseService {
     }).toList();
     return carsList;
   }
+
+  Future<void> editCarInfo(Car toEdit) async {
+    try {
+      final result = await carsCollection.document(toEdit.carID).setData({
+        'carName': toEdit.carName,
+        'carImage': toEdit.carImage,
+        'carRate': toEdit.carRate,
+        'carMake': toEdit.carMake,
+        'carType': toEdit.carType,
+        'carEngine': toEdit.carEngine,
+      });
+    } catch (e) {
+      print('Error editing car data on Firebase');
+      print(e);
+    }
+  }
+
+  Future<void> addNewCar(Car carToAdd) async {
+    try {
+      final result = await carsCollection.add({
+        'carName': carToAdd.carName,
+        'carImage': carToAdd.carImage,
+        'carRate': carToAdd.carRate,
+        'carMake': carToAdd.carMake,
+        'carType': carToAdd.carType,
+        'carEngine': carToAdd.carEngine,
+      });
+    } catch (e) {
+      print('Error uploading the new car.');
+      print(e);
+    }
+  }
+
+  Future<void> deleteCar(String carToDeleteID) async {
+    try {
+      final result = carsCollection.document(carToDeleteID).delete();
+    } catch (e) {
+      print('Error uploading the new car.');
+      print(e);
+    }
+  }
 }
