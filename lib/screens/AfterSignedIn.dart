@@ -32,11 +32,7 @@ class _AfterSignedInState extends State<AfterSignedIn> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? IsLoading()
-        : CarsList(
-            activeUser: widget.user,
-          );
+    return isLoading ? IsLoading() : CarsList();
   }
 }
 

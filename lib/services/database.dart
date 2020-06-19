@@ -127,4 +127,15 @@ class DatabaseService {
       print(e);
     }
   }
+
+  Future<void> updateUserName(String userID, String updatedName) async {
+    try {
+      final result = usersCollection.document(userID).updateData({
+        'userName': updatedName,
+      });
+    } catch (e) {
+      print('Error updating user data.');
+      print(e);
+    }
+  }
 }

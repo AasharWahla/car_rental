@@ -1,4 +1,5 @@
 import 'package:carrental/screens/car_edit_screen.dart';
+import 'package:carrental/screens/userProfile.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,6 @@ import '../services/auth.dart';
 import '../services/database.dart';
 
 class CarsList extends StatefulWidget {
-  final User activeUser;
-  CarsList({this.activeUser});
   static const routeName = '/carslist';
   @override
   _CarsListState createState() => _CarsListState();
@@ -56,19 +55,38 @@ class _CarsListState extends State<CarsList> {
                           style: TextStyle(
                             fontFamily: 'HKGrotesk',
                             fontWeight: FontWeight.bold,
-                            fontSize: 40,
+                            fontSize: 30,
                           ),
                           textAlign: TextAlign.center,
                         ),
+                        (activeUser != null)
+                            ? FlatButton.icon(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (ctx) => UserProfile(
+                                        activeUser: activeUser,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                icon: Icon(Icons.edit),
+                                label: Text('Edit User Profile.'),
+                              )
+                            : null,
                       ],
                     ),
                   ),
-                  FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(OrdersScreen.routeName);
-                    },
-                    child: Text('Your Orders'),
-                  ),
+                  (activeUser.userRole == 'A' || activeUser.userRole == 'a')
+                      ? Container()
+                      : FlatButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(OrdersScreen.routeName);
+                          },
+                          child: Text('Your Orders'),
+                        ),
                   (activeUser.userRole == 'A' || activeUser.userRole == 'a')
                       ? FlatButton(
                           onPressed: () {
