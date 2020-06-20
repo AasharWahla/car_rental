@@ -1,6 +1,7 @@
+import 'package:carrental/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/orders.dart';
+import 'package:carrental/models/Order.dart';
 import '../models/Car.dart';
 
 class OrdersScreen extends StatefulWidget {
@@ -11,9 +12,46 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
+  List<Order> ordersList = [];
+  final _db = DatabaseService();
+  bool isLoading = true;
+  @override
+  void initState() {
+    _db.getOrdersData().then((value) {
+      ordersList = value;
+      print(ordersList.length);
+      for (int i = 0; i < ordersList.length; i++) {
+        print(ordersList[i].oID);
+        print(ordersList[i].total);
+        Car toReturn = carByFutureCar(ordersList[i].selectedCar);
+        print(toReturn.carName);
+      }
+    });
+
+    // TODO: implement initState
+    super.initState();
+  }
+
+  Car toReturn = Car();
+  Car carByFutureCar(Future<Car> futureCar) {
+    futureCar.then((value) {
+      toReturn = Car(
+          carID: value.carID,
+          carName: value.carName,
+          carType: value.carType,
+          carEngine: value.carEngine,
+          carRate: value.carRate,
+          carImage: value.carImage,
+          carMake: value.carMake);
+      setState(() {
+        isLoading = false;
+      });
+    });
+    return toReturn;
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<Order> ordersList = [];
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -31,7 +69,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
             },
           ),
         ),
-        body: ordersList.length == 0
+        body: ordersList.length == 0 && isLoading == true
             ? Container(
                 child: Text(
                   'No Orders Currently.',
@@ -43,6 +81,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
               )
             : Column(
                 children: ordersList.map((i) {
+                Car userCar = carByFutureCar(i.selectedCar);
                 return Stack(
                   children: <Widget>[
                     Positioned(
@@ -54,7 +93,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                i.car.carName,
+                                userCar.carName,
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -95,7 +134,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       bottom: 20,
                       child: Container(
                         child: Image.network(
-                          i.car.carImage,
+                          userCar.carImage,
                           scale: 2,
                         ),
                       ),

@@ -1,8 +1,10 @@
+import './Car.dart';
+
 class Order {
   String userId;
   String oID;
   String oStatus;
-  String selectedCar;
+  Future<Car> selectedCar;
   String dateFrom;
   String dateTo;
   int advance;

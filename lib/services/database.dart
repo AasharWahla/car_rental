@@ -38,7 +38,7 @@ class DatabaseService {
           oStatus: e.data['oStatus'],
           dateFrom: e.data['dateFrom'],
           dateTo: e.data['dateTo'],
-          selectedCar: e.data['selectedCar'],
+          selectedCar: getCarById(e.data['selectedCar']),
           total: e.data['total']);
       ordersList.add(temp);
     }).toList();
@@ -56,7 +56,7 @@ class DatabaseService {
         'orderStatus': order.oStatus,
         'dateFrom': order.dateFrom,
         'dateTo': order.dateTo,
-        'selectedCar': order.selectedCar,
+        'selectedCar': order.selectedCar.then((value) => value.carID),
         'advance': order.advance,
         'total': order.total,
       });
@@ -136,6 +136,45 @@ class DatabaseService {
     } catch (e) {
       print('Error updating user data.');
       print(e);
+    }
+  }
+
+  Future<Car> getCarById(String carID) async {
+    final result = await carsCollection.document(carID).get();
+    Car carToReturn = Car(
+        carID: result.documentID,
+        carName: result.data['carName'],
+        carType: result.data['carType'],
+        carEngine: result.data['carEngine'],
+        carRate: result.data['carRate'],
+        carImage: result.data['carImage'],
+        carMake: result.data['carMake']);
+    return carToReturn;
+  }
+
+  List<Order> userOrder = [];
+
+  Future<List<Order>> getUserOrders(String userID) async {
+    try {
+      final result = await ordersCollection.getDocuments();
+      result.documents.map((e) {
+        userOrder.add(
+          Order(
+              oID: e.documentID,
+              selectedCar: getCarById(e.data['selectedCar']),
+              total: e.data['total'],
+              dateTo: e.data['dateTo'],
+              dateFrom: e.data['dateFrom'],
+              oStatus: e.data['orderStatus'],
+              advance: e.data['advance'],
+              userId: e.data['userId']),
+        );
+      }).toList();
+      return userOrder;
+    } catch (e) {
+      print('Error updating user data.');
+      print(e);
+      return null;
     }
   }
 }

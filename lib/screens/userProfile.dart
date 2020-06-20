@@ -1,3 +1,4 @@
+import 'package:carrental/main.dart';
 import 'package:carrental/screens/Wrapper.dart';
 import 'package:carrental/screens/cars_list_screen.dart';
 import 'package:carrental/services/database.dart';
@@ -56,7 +57,7 @@ class _UserProfileState extends State<UserProfile> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (xt) => Wrapper(),
+                        builder: (xt) => MyApp(),
                       ),
                     );
                   } else {}
