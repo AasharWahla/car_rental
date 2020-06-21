@@ -4,7 +4,7 @@ class Order {
   String userId;
   String oID;
   String oStatus;
-  Future<Car> selectedCar;
+  Car selectedCar;
   String dateFrom;
   String dateTo;
   int advance;

@@ -25,27 +25,9 @@ class DatabaseService {
       'userID': toUpload.userID,
     });
   }
-
-  List<Order> ordersList = [];
-
-  Future<List<Order>> getOrdersData() async {
-    final result = await ordersCollection.getDocuments();
-    result.documents.map((e) {
-      Order temp = Order(
-          oID: e.documentID,
-          userId: e.data['userId'],
-          advance: e.data['advance'],
-          oStatus: e.data['oStatus'],
-          dateFrom: e.data['dateFrom'],
-          dateTo: e.data['dateTo'],
-          selectedCar: getCarById(e.data['selectedCar']),
-          total: e.data['total']);
-      ordersList.add(temp);
-    }).toList();
-    return ordersList;
-  }
-
   // upload data to the firebase firestore
+
+  String carIdFromFutureCarObject;
 
   Future<String> uploadOrderData(Order order) async {
     String result;
@@ -56,7 +38,7 @@ class DatabaseService {
         'orderStatus': order.oStatus,
         'dateFrom': order.dateFrom,
         'dateTo': order.dateTo,
-        'selectedCar': order.selectedCar.then((value) => value.carID),
+        'selectedCar': order.selectedCar.carID,
         'advance': order.advance,
         'total': order.total,
       });
@@ -139,9 +121,11 @@ class DatabaseService {
     }
   }
 
-  Future<Car> getCarById(String carID) async {
-    final result = await carsCollection.document(carID).get();
-    Car carToReturn = Car(
+  Car selectedCarForOrder = Car();
+
+  Future<void> orderSelectedCarByID(String carId) async {
+    final result = await carsCollection.document(carId).get();
+    Car toReturn = Car(
         carID: result.documentID,
         carName: result.data['carName'],
         carType: result.data['carType'],
@@ -149,32 +133,33 @@ class DatabaseService {
         carRate: result.data['carRate'],
         carImage: result.data['carImage'],
         carMake: result.data['carMake']);
-    return carToReturn;
+    selectedCarForOrder = toReturn;
   }
 
-  List<Order> userOrder = [];
-
-  Future<List<Order>> getUserOrders(String userID) async {
-    try {
-      final result = await ordersCollection.getDocuments();
-      result.documents.map((e) {
-        userOrder.add(
+  List<Order> ordersList = [];
+  Future<List<Order>> getSpecificUserOrders(String userID) async {
+    final result = await ordersCollection.getDocuments();
+    result.documents.map((orders) {
+      if (orders.data['userId'] == userID) {
+        ordersList.add(
           Order(
-              oID: e.documentID,
-              selectedCar: getCarById(e.data['selectedCar']),
-              total: e.data['total'],
-              dateTo: e.data['dateTo'],
-              dateFrom: e.data['dateFrom'],
-              oStatus: e.data['orderStatus'],
-              advance: e.data['advance'],
-              userId: e.data['userId']),
+            oID: orders.documentID,
+            selectedCar: Car(carID: orders.data['selectedCar']),
+            total: orders.data['total'],
+            dateTo: orders.data['dateTo'],
+            dateFrom: orders.data['dateFrom'],
+            oStatus: orders.data['orderStatus'],
+            advance: orders.data['advance'],
+            userId: orders.data['userId'],
+          ),
         );
-      }).toList();
-      return userOrder;
-    } catch (e) {
-      print('Error updating user data.');
-      print(e);
-      return null;
+      }
+    }).toList();
+
+    for (int i = 0; i < ordersList.length; i++) {
+      await orderSelectedCarByID(ordersList[i].selectedCar.carID);
+      ordersList[i].selectedCar = selectedCarForOrder;
     }
+    return ordersList;
   }
 }

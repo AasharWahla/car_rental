@@ -15,10 +15,6 @@ class BookNow extends StatefulWidget {
   final Car currentCar;
   final User activeUser;
 
-  Future<Car> futureCar() async {
-    return currentCar;
-  }
-
   BookNow({this.currentCar, this.activeUser});
   @override
   _BookNowState createState() => _BookNowState();
@@ -248,11 +244,29 @@ class _BookNowState extends State<BookNow> {
                           );
                         });
                   } else {
+                    toUpload = Order(
+                        userId: widget.activeUser.userID,
+                        oID: DateTime.now().toIso8601String(),
+                        advance: (_tillSelectedDate
+                                    .difference(_fromSelectedDate)
+                                    .inDays *
+                                widget.currentCar.carRate *
+                                .5)
+                            .round(),
+                        oStatus: 'Pending',
+                        dateFrom: _fromSelectedDate.toString(),
+                        dateTo: _tillSelectedDate.toString(),
+                        total: (_tillSelectedDate
+                                    .difference(_fromSelectedDate)
+                                    .inDays *
+                                widget.currentCar.carRate)
+                            .round(),
+                        selectedCar: widget.currentCar);
                     toUpload.oID = DateTime.now().toIso8601String();
                     toUpload.userId = widget.activeUser.userID;
                     toUpload.dateFrom = _fromSelectedDate.toString();
                     toUpload.dateTo = _tillSelectedDate.toString();
-                    toUpload.selectedCar = widget.futureCar();
+                    toUpload.selectedCar = widget.currentCar;
                     toUpload.oStatus = 'Pending';
                     toUpload.advance = (_tillSelectedDate
                                 .difference(_fromSelectedDate)
@@ -272,9 +286,9 @@ class _BookNowState extends State<BookNow> {
                             builder: (BuildContext context) {
                               return RichAlertDialog(
                                 //uses the custom alert dialog
-                                alertTitle: richTitle("Warning !"),
+                                alertTitle: richTitle("Warning!"),
                                 alertSubtitle: richSubtitle(
-                                    "Kindly select the valid dates."),
+                                    "Due to some issue unable to place order."),
                                 alertType: RichAlertType.ERROR,
                               );
                             });
@@ -287,7 +301,7 @@ class _BookNowState extends State<BookNow> {
                               //uses the custom alert dialog
                               alertTitle: richTitle("DONE!"),
                               alertSubtitle: richSubtitle(
-                                  "The Booking is done successfully. \n You will shortly recieve the confirmation message."),
+                                  "The Booking is done successfully. \n You will shortly receive the confirmation message."),
                               alertType: RichAlertType.SUCCESS,
                             );
                           },
